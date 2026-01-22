@@ -3,7 +3,7 @@ import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { DynamoDBDocumentClient } from "@aws-sdk/lib-dynamodb";
 
 export function getDdb() {
-  const region = process.env.AWS_REGION;
+  const region = "ap-southeast-1";
   if (!region) throw new Error("AWS_REGION is not set");
   const client = new DynamoDBClient({ region });
   return DynamoDBDocumentClient.from(client, {

@@ -309,11 +309,10 @@ export default function RecommendationResult({ data }: RecommendationResultProps
             <div className={styles.modalBody}>
               {/* Coverage Scores */}
               <div className={styles.coverageSection}>
-                <h4>📊 Coverage Analysis</h4>
+                <h4>Coverage Analysis</h4>
                 <div className={styles.coverageGrid}>
                   <div className={styles.coverageCard}>
                     <div className={styles.coverageHeader}>
-                      <span className={styles.coverageIcon}>📱</span>
                       <span className={styles.coverageTitle}>Total Coverage</span>
                     </div>
                     <div className={styles.coverageBarContainer}>
@@ -335,7 +334,6 @@ export default function RecommendationResult({ data }: RecommendationResultProps
 
                   <div className={styles.coverageCard}>
                     <div className={styles.coverageHeader}>
-                      <span className={styles.coverageIcon}>🎥</span>
                       <span className={styles.coverageTitle}>Video Coverage</span>
                     </div>
                     <div className={styles.coverageBarContainer}>
@@ -357,7 +355,6 @@ export default function RecommendationResult({ data }: RecommendationResultProps
 
                   <div className={styles.coverageCard}>
                     <div className={styles.coverageHeader}>
-                      <span className={styles.coverageIcon}>🎮</span>
                       <span className={styles.coverageTitle}>Game Coverage</span>
                     </div>
                     <div className={styles.coverageBarContainer}>
@@ -379,7 +376,6 @@ export default function RecommendationResult({ data }: RecommendationResultProps
 
                   <div className={styles.coverageCard}>
                     <div className={styles.coverageHeader}>
-                      <span className={styles.coverageIcon}>📱</span>
                       <span className={styles.coverageTitle}>Social Coverage</span>
                     </div>
                     <div className={styles.coverageBarContainer}>
@@ -401,7 +397,6 @@ export default function RecommendationResult({ data }: RecommendationResultProps
 
                   <div className={styles.coverageCard}>
                     <div className={styles.coverageHeader}>
-                      <span className={styles.coverageIcon}>💼</span>
                       <span className={styles.coverageTitle}>Work Coverage</span>
                     </div>
                     <div className={styles.coverageBarContainer}>
@@ -423,7 +418,6 @@ export default function RecommendationResult({ data }: RecommendationResultProps
 
                   <div className={styles.coverageCard}>
                     <div className={styles.coverageHeader}>
-                      <span className={styles.coverageIcon}>💰</span>
                       <span className={styles.coverageTitle}>Cost Efficiency</span>
                     </div>
                     <div className={styles.coverageBarContainer}>
@@ -447,50 +441,44 @@ export default function RecommendationResult({ data }: RecommendationResultProps
 
               {/* Quota Breakdown */}
               <div className={styles.quotaBreakdown}>
-                <h4>📦 Kuota Breakdown</h4>
+                <h4>Quota Breakdown</h4>
                 <div className={styles.quotaGrid}>
                   <div className={styles.quotaCard}>
-                    <div className={styles.quotaIcon}>📱</div>
                     <div className={styles.quotaContent}>
-                      <span className={styles.quotaLabel}>Kuota Utama</span>
+                      <span className={styles.quotaLabel}>Main</span>
                       <span className={styles.quotaValue}>{selectedPackage.main_gb} GB</span>
                     </div>
                   </div>
 
                   <div className={styles.quotaCard}>
-                    <div className={styles.quotaIcon}>🎥</div>
                     <div className={styles.quotaContent}>
-                      <span className={styles.quotaLabel}>Bonus Video</span>
+                      <span className={styles.quotaLabel}>Video</span>
                       <span className={styles.quotaValue}>{selectedPackage.video_gb} GB</span>
                     </div>
                   </div>
 
                   <div className={styles.quotaCard}>
-                    <div className={styles.quotaIcon}>🎮</div>
                     <div className={styles.quotaContent}>
-                      <span className={styles.quotaLabel}>Bonus Game</span>
+                      <span className={styles.quotaLabel}>Game</span>
                       <span className={styles.quotaValue}>{selectedPackage.game_gb} GB</span>
                     </div>
                   </div>
 
                   <div className={styles.quotaCard}>
-                    <div className={styles.quotaIcon}>💬</div>
                     <div className={styles.quotaContent}>
-                      <span className={styles.quotaLabel}>Bonus Social</span>
+                      <span className={styles.quotaLabel}>Social</span>
                       <span className={styles.quotaValue}>{selectedPackage.social_gb} GB</span>
                     </div>
                   </div>
 
                   <div className={styles.quotaCard}>
-                    <div className={styles.quotaIcon}>💼</div>
                     <div className={styles.quotaContent}>
-                      <span className={styles.quotaLabel}>Bonus Work</span>
+                      <span className={styles.quotaLabel}>Work</span>
                       <span className={styles.quotaValue}>{selectedPackage.work_gb} GB</span>
                     </div>
                   </div>
 
                   <div className={styles.quotaCard + ' ' + styles.totalCard}>
-                    <div className={styles.quotaIcon}>📊</div>
                     <div className={styles.quotaContent}>
                       <span className={styles.quotaLabel}>Total</span>
                       <span className={styles.quotaValue}>{getTotalQuota(selectedPackage)} GB</span>
@@ -500,7 +488,7 @@ export default function RecommendationResult({ data }: RecommendationResultProps
               </div>
 
               <div className={styles.packageSummary}>
-                <h4>💳 Ringkasan</h4>
+                <h4>Summary</h4>
                 <div className={styles.summaryGrid}>
                   <div className={styles.summaryItem}>
                     <span>Harga</span>
