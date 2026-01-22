@@ -234,14 +234,16 @@ body {
 }
 
 .balance-amount {
-    font-size: var(--font-size-sm);
-    color: var(--gray-600);
+    font-size: var(--font-size-lg);
+    font-weight: 600;
+    color: var(--gray-900);
 }
 
 .balance-label {
     font-size: var(--font-size-sm);
     font-weight: 500;
-    color: var(--gray-900);
+    color: var(--gray-600);
+    margin-left: var(--spacing-xs);
 }
 
 .topup-btn {
@@ -265,13 +267,26 @@ body {
    ============================================ */
 
 .main-content {
-    max-width: 1280px;
-    margin: 0 auto;
-    padding: var(--spacing-2xl) var(--spacing-lg);
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
 }
 
 .section {
-    margin-bottom: var(--spacing-3xl);
+    margin-bottom: var(--spacing-md);
+}
+
+.section-full-width {
+    width: 100%;
+    margin-bottom: var(--spacing-xl);
+    padding: var(--spacing-xl) 0;
+    background: var(--white);
+}
+
+.section-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-lg);
 }
 
 .section-header {
@@ -397,13 +412,14 @@ body {
     padding: var(--spacing-xs) var(--spacing-sm);
     border-radius: var(--radius-sm);
     z-index: 10;
+    margin-bottom: var(--spacing-xl);
 }
 
 .package-name {
     font-size: var(--font-size-sm);
     color: var(--gray-600);
     margin-bottom: var(--spacing-sm);
-    margin-top: var(--spacing-md);
+    margin-top: var(--spacing-2xl);
 }
 
 .package-name.no-badge {
@@ -737,11 +753,19 @@ body {
 
 @media (max-width: 768px) {
     .main-content {
-        padding: var(--spacing-lg) var(--spacing-md);
+        padding: 0;
     }
     
     .section {
-        margin-bottom: var(--spacing-2xl);
+        margin-bottom: var(--spacing-xl);
+    }
+    
+    .section-full-width {
+        padding: var(--spacing-lg) 0;
+    }
+    
+    .section-inner {
+        padding: 0 var(--spacing-md);
     }
     
     .section-header {

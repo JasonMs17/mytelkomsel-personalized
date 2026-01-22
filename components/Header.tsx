@@ -1,10 +1,103 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
+import Cookies from 'js-cookie'
+import { usePackageContext } from '@/context/PackageContext'
 import styles from './Header.module.css'
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [profileDropdownOpen, setProfileDropdownOpen] = useState(false)
+  const [selectedUser, setSelectedUser] = useState('U01')
+  const [isLoadingUser, setIsLoadingUser] = useState(false)
+  const [isMounted, setIsMounted] = useState(false)
+  const { setRecommendationData } = usePackageContext()
+  const dropdownRef = useRef<HTMLDivElement>(null)
+
+  const userIds = ['U01', 'U02', 'U03', 'U04', 'U05']
+
+  // Load user from cookies on mount
+  useEffect(() => {
+    const savedUser = Cookies.get('selectedUserId') || 'U01'
+    setSelectedUser(savedUser)
+    setIsMounted(true)
+  }, [])
+
+  // Auto-fetch recommendations when mounted with saved user
+  useEffect(() => {
+    if (isMounted && selectedUser) {
+      const fetchRecommendations = async () => {
+        try {
+          const response = await fetch('/api/recommend', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              user_id: selectedUser,
+              top_n: 5
+            })
+          })
+
+          if (response.ok) {
+            const data = await response.json()
+            setRecommendationData(data)
+          }
+        } catch (error) {
+          console.error('Error fetching recommendations:', error)
+        }
+      }
+      
+      fetchRecommendations()
+    }
+  }, [isMounted])
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setProfileDropdownOpen(false)
+      }
+    }
+
+    if (profileDropdownOpen) {
+      document.addEventListener('mousedown', handleClickOutside)
+      return () => document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [profileDropdownOpen])
+
+  const handleUserSelect = async (userId: string) => {
+    setSelectedUser(userId)
+    // Save to cookies
+    Cookies.set('selectedUserId', userId, { expires: 365 })
+    setIsLoadingUser(true)
+    
+    try {
+      const response = await fetch('/api/recommend', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          user_id: userId,
+          top_n: 5
+        })
+      })
+
+      if (!response.ok) {
+        throw new Error('Failed to fetch recommendations')
+      }
+
+      const data = await response.json()
+      setRecommendationData(data)
+      console.log('Recommendations:', data)
+    } catch (error) {
+      console.error('Error fetching recommendations:', error)
+    } finally {
+      setIsLoadingUser(false)
+      setProfileDropdownOpen(false)
+    }
+  }
 
   return (
     <header className={styles.header}>
@@ -62,11 +155,37 @@ export default function Header() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
               </svg>
             </button>
-            <button className={styles.iconBtn} aria-label="Profile">
-              <svg className={styles.icon} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-              </svg>
-            </button>
+            <div className={styles.profileDropdownContainer} ref={dropdownRef}>
+              <button 
+                className={styles.iconBtn} 
+                onClick={() => setProfileDropdownOpen(!profileDropdownOpen)}
+                aria-label="Profile"
+              >
+                <svg className={styles.icon} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                </svg>
+              </button>
+              {profileDropdownOpen && (
+                <div className={styles.profileDropdown}>
+                  <div className={styles.dropdownHeader}>
+                    <span className={styles.dropdownTitle}>Pilih User ID</span>
+                  </div>
+                  <div className={styles.userList}>
+                    {userIds.map((userId) => (
+                      <button
+                        key={userId}
+                        className={`${styles.userItem} ${selectedUser === userId ? styles.userItemActive : ''}`}
+                        onClick={() => handleUserSelect(userId)}
+                        disabled={isLoadingUser}
+                      >
+                        {userId}
+                        {selectedUser === userId && <span className={styles.checkmark}>✓</span>}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
         </div>
         

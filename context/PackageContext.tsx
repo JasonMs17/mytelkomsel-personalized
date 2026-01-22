@@ -20,13 +20,22 @@ interface PopupData {
   packageItem: PackageItem
 }
 
+interface RecommendationData {
+  user_id: string
+  profile: any
+  saw_debug: any
+  recommendations: any[]
+}
+
 interface PackageContextType {
   specialPackages: PackageItem[]
   getPackagesByCategory: (category: string) => PackageItem[]
   popupData: PopupData | null
+  recommendationData: RecommendationData | null
   showRecommendation: (packageItem: PackageItem) => void
   closePopup: () => void
   acceptRecommendation: () => void
+  setRecommendationData: (data: RecommendationData | null) => void
 }
 
 const PackageContext = createContext<PackageContextType | undefined>(undefined)
@@ -119,6 +128,7 @@ function generateRecommendationMessage(packageItem: PackageItem): string {
 
 export function PackageProvider({ children }: { children: ReactNode }) {
   const [popupData, setPopupData] = useState<PopupData | null>(null)
+  const [recommendationData, setRecommendationData] = useState<RecommendationData | null>(null)
 
   const specialPackages = packageData.special || []
 
@@ -152,9 +162,11 @@ export function PackageProvider({ children }: { children: ReactNode }) {
         specialPackages,
         getPackagesByCategory,
         popupData,
+        recommendationData,
         showRecommendation,
         closePopup,
         acceptRecommendation,
+        setRecommendationData,
       }}
     >
       {children}
