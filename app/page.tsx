@@ -32,7 +32,7 @@ export default function Home() {
         <SpecialSection />
         <PackageSection />
       </main>
-      <DebugButton />
+      {process.env.NODE_ENV !== 'production' && <DebugButton />}
     </PackageProvider>
   )
 }

@@ -230,7 +230,7 @@ export default function RecommendationResult({ data }: RecommendationResultProps
                       <h4 className={styles.cardTitle}>{pkg.name}</h4>
                       
                       <div className={styles.quotaDisplay}>
-                        <span className={styles.quotaLarge}>{pkg.main_gb + pkg.video_gb + pkg.game_gb} GB</span>
+                        <span className={styles.quotaLarge}>{pkg.main_gb + pkg.video_gb + pkg.game_gb + pkg.social_gb + pkg.work_gb} GB</span>
                         <span className={styles.quotaDivider}>|</span>
                         <span className={styles.quotaDays}>{pkg.days} hari</span>
                       </div>
@@ -240,7 +240,7 @@ export default function RecommendationResult({ data }: RecommendationResultProps
                     <div className={styles.cardBody}>
                       <div className={styles.detailRow}>
                         <span className={styles.detailLabel}>Internet</span>
-                        <span className={styles.detailValue}>{pkg.main_gb + pkg.video_gb + pkg.game_gb} GB</span>
+                        <span className={styles.detailValue}>{pkg.main_gb} GB</span>
                       </div>
                       
                       {pkg.type === 'COMBO' && pkg.video_gb > 0 && (
@@ -254,6 +254,20 @@ export default function RecommendationResult({ data }: RecommendationResultProps
                         <div className={styles.detailRow}>
                           <span className={styles.detailLabel}>Game</span>
                           <span className={styles.detailValue}>{pkg.game_gb} GB</span>
+                        </div>
+                      )}
+                      
+                      {pkg.type === 'COMBO' && pkg.social_gb > 0 && (
+                        <div className={styles.detailRow}>
+                          <span className={styles.detailLabel}>Social</span>
+                          <span className={styles.detailValue}>{pkg.social_gb} GB</span>
+                        </div>
+                      )}
+                      
+                      {pkg.type === 'COMBO' && pkg.work_gb > 0 && (
+                        <div className={styles.detailRow}>
+                          <span className={styles.detailLabel}>Work</span>
+                          <span className={styles.detailValue}>{pkg.work_gb} GB</span>
                         </div>
                       )}
                     </div>
