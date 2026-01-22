@@ -1,6 +1,6 @@
 'use client'
 
-import { usePackageContext } from '@/context/PackageContext'
+import { usePackageContext } from '../context/PackageContext'
 import { useEffect, useState } from 'react'
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from 'recharts'
 import styles from './UserStatistics.module.css'

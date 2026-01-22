@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react'
 import Cookies from 'js-cookie'
-import { usePackageContext } from '@/context/PackageContext'
+import { usePackageContext } from '../context/PackageContext'
 import styles from './Header.module.css'
 
 export default function Header() {

@@ -1,6 +1,6 @@
 'use client'
 
-import { usePackageContext } from '@/context/PackageContext'
+import { usePackageContext } from '../context/PackageContext'
 
 export default function Popup() {
   const { popupData, closePopup, acceptRecommendation } = usePackageContext()

@@ -1,5 +1,5 @@
 import { PutCommand } from '@aws-sdk/lib-dynamodb'
-import { getDdb } from '@/lib/ddb'
+import { getDdb } from './ddb'
 
 const CATALOG_DATA = [
   { id: 'R01', name: 'Reguler 5GB Mingguan', type: 'REGULAR', price: 15000, days: 7, main: 5, video: 0, game: 0 },

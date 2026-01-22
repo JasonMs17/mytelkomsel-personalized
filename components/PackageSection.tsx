@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { usePackageContext } from '@/context/PackageContext'
+import { usePackageContext } from '../context/PackageContext'
 import PackageCard from './PackageCard'
 import TabButton from './TabButton'
 

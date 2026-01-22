@@ -1,6 +1,6 @@
 'use client'
 
-import { usePackageContext } from '@/context/PackageContext'
+import { usePackageContext } from '../context/PackageContext'
 import PackageCard from './PackageCard'
 
 export default function SpecialSection() {

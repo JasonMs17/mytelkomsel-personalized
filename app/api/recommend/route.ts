@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { GetCommand, ScanCommand } from "@aws-sdk/lib-dynamodb";
-import { getDdb } from "@/lib/ddb";
+import { getDdb } from "../../../lib/ddb";
 import { 
   recommendSaw, 
   UserNeeds, 
@@ -8,7 +8,7 @@ import {
   UserLifecycle, 
   PackageCatalog,
   SAWResult 
-} from "@/lib/saw";
+} from "../../../lib/saw";
 
 export async function POST(req: Request) {
   try {

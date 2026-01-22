@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { usePackageContext } from '@/context/PackageContext'
+import { usePackageContext } from '../context/PackageContext'
 import styles from './PackageCard.module.css'
 
 interface PackageItem {

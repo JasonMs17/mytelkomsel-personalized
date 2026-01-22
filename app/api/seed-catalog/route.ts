@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import { seedPackageCatalog } from '@/lib/seed-catalog'
+import { seedPackageCatalog } from '../../../lib/seed-catalog'
 
 export async function POST(request: Request) {
   try {
