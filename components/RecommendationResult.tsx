@@ -138,7 +138,7 @@ export default function RecommendationResult({ data }: RecommendationResultProps
   }, [data, profile, saw_debug])
 
   // Helper untuk mendapatkan total kuota
-  const getTotalQuota = (pkg: ScoredPackage) => pkg.main_gb + pkg.video_gb + pkg.game_gb
+  const getTotalQuota = (pkg: ScoredPackage) => pkg.main_gb + pkg.video_gb + pkg.game_gb + pkg.social_gb + pkg.work_gb
 
   // Helper untuk warna berdasarkan coverage
   const getCoverageColor = (coverage: number) => {

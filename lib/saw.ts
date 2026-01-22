@@ -18,6 +18,7 @@ export interface UserNeeds {
 /** User price behaviour dari user_price_behaviour */
 export interface UserPriceBehaviour {
   user_id: string;
+  avg_price: number;                                    // Average price user usually pays
   max_price: number;                                    // Hard constraint budget
   price_sensitivity: 'HIGH' | 'MEDIUM' | 'LOW';         // Untuk menentukan w_cost
 }
