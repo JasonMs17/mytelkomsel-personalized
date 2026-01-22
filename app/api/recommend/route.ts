@@ -11,13 +11,20 @@ import {
 } from "../../../lib/saw";
 
 export async function POST(req: Request) {
+  console.log('🔵 [RECOMMEND API] Starting request...');
+  
   try {
-    const { user_id, top_n } = await req.json();
+    const body = await req.json();
+    console.log('🔵 [RECOMMEND API] Request body:', body);
+    
+    const { user_id, top_n } = body;
 
     if (!user_id) {
+      console.log('❌ [RECOMMEND API] Missing user_id');
       return NextResponse.json({ error: "user_id is required" }, { status: 400 });
     }
 
+    console.log('🔵 [RECOMMEND API] Getting DDB client...');
     const ddb = getDdb();
 
     const TABLE_USAGE = process.env.TABLE_USAGE!;
@@ -25,20 +32,59 @@ export async function POST(req: Request) {
     const TABLE_LIFECYCLE = process.env.TABLE_LIFECYCLE!;
     const TABLE_PACKAGE_CATALOG = process.env.TABLE_PACKAGE_CATALOG!;
 
+    console.log('🔵 [RECOMMEND API] Environment variables:', {
+      AWS_REGION: process.env.AWS_REGION || 'NOT SET',
+      TABLE_USAGE: TABLE_USAGE || 'MISSING ❌',
+      TABLE_PRICE: TABLE_PRICE || 'MISSING ❌',
+      TABLE_LIFECYCLE: TABLE_LIFECYCLE || 'MISSING ❌',
+      TABLE_PACKAGE_CATALOG: TABLE_PACKAGE_CATALOG || 'MISSING ❌',
+      NODE_ENV: process.env.NODE_ENV
+    });
+
+    if (!TABLE_USAGE || !TABLE_PRICE || !TABLE_LIFECYCLE || !TABLE_PACKAGE_CATALOG) {
+      console.log('❌ [RECOMMEND API] Missing required environment variables!');
+      return NextResponse.json({ 
+        error: "Missing required environment variables",
+        missing: {
+          TABLE_USAGE: !TABLE_USAGE,
+          TABLE_PRICE: !TABLE_PRICE,
+          TABLE_LIFECYCLE: !TABLE_LIFECYCLE,
+          TABLE_PACKAGE_CATALOG: !TABLE_PACKAGE_CATALOG
+        }
+      }, { status: 500 });
+    }
+
+    console.log('🔵 [RECOMMEND API] Tables:', {
+      TABLE_USAGE,
+      TABLE_PRICE,
+      TABLE_LIFECYCLE,
+      TABLE_PACKAGE_CATALOG
+    });
+
     // 1) Get user rows from DynamoDB
+    console.log('🔵 [RECOMMEND API] Fetching user data from DynamoDB...');
     const [usageRes, priceRes, lifeRes] = await Promise.all([
       ddb.send(new GetCommand({ TableName: TABLE_USAGE, Key: { user_id } })),
       ddb.send(new GetCommand({ TableName: TABLE_PRICE, Key: { user_id } })),
       ddb.send(new GetCommand({ TableName: TABLE_LIFECYCLE, Key: { user_id } })),
     ]);
 
+    console.log('🔵 [RECOMMEND API] User data fetched:', {
+      hasUsage: !!usageRes.Item,
+      hasPrice: !!priceRes.Item,
+      hasLifecycle: !!lifeRes.Item
+    });
+
     if (!usageRes.Item || !priceRes.Item || !lifeRes.Item) {
+      console.log('❌ [RECOMMEND API] User data not found');
       return NextResponse.json({ error: "User data not found" }, { status: 404 });
     }
 
     // 2) Scan packages catalog
+    console.log('🔵 [RECOMMEND API] Scanning package catalog...');
     const catalogRes = await ddb.send(new ScanCommand({ TableName: TABLE_PACKAGE_CATALOG }));
     const catalog = (catalogRes.Items ?? []) as any[];
+    console.log('🔵 [RECOMMEND API] Found', catalog.length, 'packages');
 
     // 3) Transform raw data ke interface baru
     const usage = usageRes.Item as any;
@@ -159,14 +205,17 @@ export async function POST(req: Request) {
         explanation: rec.explanation,
       })),
     });
+    
+    console.log('✅ [RECOMMEND API] Success! Returning', sawResult.recommendations.length, 'recommendations');
   } catch (e: any) {
-    console.error('Error in /api/recommend:', {
+    console.error('❌❌❌ [RECOMMEND API] ERROR:', {
       message: e?.message,
       code: e?.code,
+      name: e?.name,
       stack: e?.stack,
     });
     return NextResponse.json(
-      { error: e?.message ?? "Unknown error", details: process.env.NODE_ENV === 'development' ? e?.stack : undefined },
+      { error: e?.message ?? "Unknown error", details: e?.stack },
       { status: 500 }
     );
   }
