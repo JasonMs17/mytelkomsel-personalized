@@ -1052,7 +1052,7 @@
 
 .quotaGrid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(5, 1fr);
   gap: 12px;
   margin-bottom: 24px;
 }
@@ -1060,91 +1060,97 @@
 .quotaCard {
   display: flex;
   flex-direction: column;
-  gap: 4px;
-  padding: 16px;
+  gap: 6px;
+  padding: 16px 12px;
   background: white;
-  border-radius: 8px;
-  border: 1px solid #e5e5e5;
-  transition: all 0.3s ease;
+  border-radius: 10px;
+  border: 1px solid #e0e0e0;
+  transition: all 0.2s ease;
+  text-align: center;
+  position: relative;
 }
 
 .quotaCard:hover {
-  background: #f8f9fa;
   border-color: #ED1C24;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  transform: translateY(-1px);
 }
 
 .quotaCard.totalCard {
   grid-column: 1 / -1;
-  background: linear-gradient(135deg, #ED1C24 0%, #B71C1C 100%);
+  background: linear-gradient(135deg, #ED1C24 0%, #B91C1C 100%);
   border: none;
+  box-shadow: 0 3px 10px rgba(237, 28, 36, 0.25);
+  padding: 18px 12px;
 }
 
-.quotaCard.totalCard {
-  color: white;
-}
-
-.quotaIcon {
-  display: none;
-}
-
-.quotaContent {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
+.quotaCard.totalCard:hover {
+  background: linear-gradient(135deg, #D91C1C 0%, #A01C1C 100%);
+  box-shadow: 0 4px 14px rgba(237, 28, 36, 0.35);
+  transform: translateY(-2px);
 }
 
 .quotaLabel {
-  font-size: 11px;
-  color: #999;
-  font-weight: 500;
+  font-size: 9px;
+  color: #aaa;
+  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 1px;
+  margin-bottom: 2px;
 }
 
 .quotaCard.totalCard .quotaLabel {
-  color: rgba(255, 255, 255, 0.85);
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 10px;
 }
 
 .quotaValue {
-  font-size: 18px;
+  font-size: 24px;
   font-weight: 700;
-  color: #333;
+  color: #222;
+  line-height: 1;
 }
 
 .quotaCard.totalCard .quotaValue {
   color: white;
+  font-size: 28px;
 }
 
 .packageSummary {
-  background: #f8f9fa;
-  padding: 16px;
+  background: white;
+  padding: 20px;
   border-radius: 12px;
   margin-bottom: 20px;
+  border: 1px solid #e8e8e8;
 }
 
 .packageSummary h4 {
-  margin: 0 0 12px 0;
-  font-size: 14px;
+  margin: 0 0 16px 0;
+  font-size: 15px;
   color: #333;
   font-weight: 600;
+  letter-spacing: 0.3px;
 }
 
 .summaryGrid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
 }
 
 .summaryItem {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 6px;
+  text-align: center;
 }
 
 .summaryItem span {
-  font-size: 12px;
+  font-size: 11px;
   color: #999;
-  font-weight: 500;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .summaryItem strong {
@@ -1431,26 +1437,36 @@
 
 /* ==== Coverage Section Modal ==== */
 .coverageSection {
-  margin-bottom: 20px;
+  margin-bottom: 24px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid #e8e8e8;
 }
 
 .coverageSection h4 {
-  margin: 0 0 12px 0;
-  font-size: 14px;
+  margin: 0 0 16px 0;
+  font-size: 15px;
   color: #333;
   font-weight: 600;
+  letter-spacing: 0.3px;
 }
 
 .coverageGrid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
+  gap: 16px;
 }
 
 .coverageCard {
-  background: #f8f9fa;
-  border-radius: 10px;
-  padding: 12px;
+  background: white;
+  border-radius: 12px;
+  padding: 16px;
+  border: 1px solid #e8e8e8;
+  transition: all 0.2s ease;
+}
+
+.coverageCard:hover {
+  border-color: #ED1C24;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 .coverageHeader {
@@ -1506,6 +1522,47 @@
   font-size: 14px;
   color: #333;
   font-weight: 600;
+}
+
+.quotaBreakdownGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.quotaBreakdownCard {
+  background: white;
+  border-radius: 12px;
+  padding: 16px;
+  border: 1px solid #e8e8e8;
+  transition: all 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.quotaBreakdownCard:hover {
+  border-color: #ED1C24;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.quotaBreakdownLabel {
+  font-size: 11px;
+  color: #999;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.quotaBreakdownValue {
+  font-size: 20px;
+  font-weight: 700;
+  color: #333;
+}
+
+.quotaTotalValue {
+  color: #ED1C24;
+  font-size: 24px;
 }
 
 @media (max-width: 768px) {

@@ -442,47 +442,43 @@ export default function RecommendationResult({ data }: RecommendationResultProps
               {/* Quota Breakdown */}
               <div className={styles.quotaBreakdown}>
                 <h4>Quota Breakdown</h4>
-                <div className={styles.quotaGrid}>
-                  <div className={styles.quotaCard}>
-                    <div className={styles.quotaContent}>
-                      <span className={styles.quotaLabel}>Main</span>
-                      <span className={styles.quotaValue}>{selectedPackage.main_gb} GB</span>
-                    </div>
+                <div className={styles.quotaBreakdownGrid}>
+                  <div className={styles.quotaBreakdownCard}>
+                    <span className={styles.quotaBreakdownLabel}>Main Quota</span>
+                    <span className={styles.quotaBreakdownValue}>{selectedPackage.main_gb} GB</span>
                   </div>
-
-                  <div className={styles.quotaCard}>
-                    <div className={styles.quotaContent}>
-                      <span className={styles.quotaLabel}>Video</span>
-                      <span className={styles.quotaValue}>{selectedPackage.video_gb} GB</span>
+                  
+                  {selectedPackage.video_gb > 0 && (
+                    <div className={styles.quotaBreakdownCard}>
+                      <span className={styles.quotaBreakdownLabel}>Video Bonus</span>
+                      <span className={styles.quotaBreakdownValue}>{selectedPackage.video_gb} GB</span>
                     </div>
-                  </div>
-
-                  <div className={styles.quotaCard}>
-                    <div className={styles.quotaContent}>
-                      <span className={styles.quotaLabel}>Game</span>
-                      <span className={styles.quotaValue}>{selectedPackage.game_gb} GB</span>
+                  )}
+                  
+                  {selectedPackage.game_gb > 0 && (
+                    <div className={styles.quotaBreakdownCard}>
+                      <span className={styles.quotaBreakdownLabel}>Game Bonus</span>
+                      <span className={styles.quotaBreakdownValue}>{selectedPackage.game_gb} GB</span>
                     </div>
-                  </div>
-
-                  <div className={styles.quotaCard}>
-                    <div className={styles.quotaContent}>
-                      <span className={styles.quotaLabel}>Social</span>
-                      <span className={styles.quotaValue}>{selectedPackage.social_gb} GB</span>
+                  )}
+                  
+                  {selectedPackage.social_gb > 0 && (
+                    <div className={styles.quotaBreakdownCard}>
+                      <span className={styles.quotaBreakdownLabel}>Social Bonus</span>
+                      <span className={styles.quotaBreakdownValue}>{selectedPackage.social_gb} GB</span>
                     </div>
-                  </div>
-
-                  <div className={styles.quotaCard}>
-                    <div className={styles.quotaContent}>
-                      <span className={styles.quotaLabel}>Work</span>
-                      <span className={styles.quotaValue}>{selectedPackage.work_gb} GB</span>
+                  )}
+                  
+                  {selectedPackage.work_gb > 0 && (
+                    <div className={styles.quotaBreakdownCard}>
+                      <span className={styles.quotaBreakdownLabel}>Work Bonus</span>
+                      <span className={styles.quotaBreakdownValue}>{selectedPackage.work_gb} GB</span>
                     </div>
-                  </div>
-
-                  <div className={styles.quotaCard + ' ' + styles.totalCard}>
-                    <div className={styles.quotaContent}>
-                      <span className={styles.quotaLabel}>Total</span>
-                      <span className={styles.quotaValue}>{getTotalQuota(selectedPackage)} GB</span>
-                    </div>
+                  )}
+                  
+                  <div className={styles.quotaBreakdownCard}>
+                    <span className={styles.quotaBreakdownLabel}>Total Quota</span>
+                    <span className={styles.quotaBreakdownValue + ' ' + styles.quotaTotalValue}>{getTotalQuota(selectedPackage)} GB</span>
                   </div>
                 </div>
               </div>
