@@ -27,32 +27,10 @@ export async function POST(req: Request) {
     console.log('🔵 [RECOMMEND API] Getting DDB client...');
     const ddb = getDdb();
 
-    const TABLE_USAGE = process.env.TABLE_USAGE!;
-    const TABLE_PRICE = process.env.TABLE_PRICE!;
-    const TABLE_LIFECYCLE = process.env.TABLE_LIFECYCLE!;
-    const TABLE_PACKAGE_CATALOG = process.env.TABLE_PACKAGE_CATALOG!;
-
-    console.log('🔵 [RECOMMEND API] Environment variables:', {
-      AWS_REGION: process.env.AWS_REGION || 'NOT SET',
-      TABLE_USAGE: TABLE_USAGE || 'MISSING ❌',
-      TABLE_PRICE: TABLE_PRICE || 'MISSING ❌',
-      TABLE_LIFECYCLE: TABLE_LIFECYCLE || 'MISSING ❌',
-      TABLE_PACKAGE_CATALOG: TABLE_PACKAGE_CATALOG || 'MISSING ❌',
-      NODE_ENV: process.env.NODE_ENV
-    });
-
-    if (!TABLE_USAGE || !TABLE_PRICE || !TABLE_LIFECYCLE || !TABLE_PACKAGE_CATALOG) {
-      console.log('❌ [RECOMMEND API] Missing required environment variables!');
-      return NextResponse.json({ 
-        error: "Missing required environment variables",
-        missing: {
-          TABLE_USAGE: !TABLE_USAGE,
-          TABLE_PRICE: !TABLE_PRICE,
-          TABLE_LIFECYCLE: !TABLE_LIFECYCLE,
-          TABLE_PACKAGE_CATALOG: !TABLE_PACKAGE_CATALOG
-        }
-      }, { status: 500 });
-    }
+    const TABLE_USAGE = "user_app_usage_summary";
+    const TABLE_PRICE = "user_price_behavior";
+    const TABLE_LIFECYCLE = "user_lifecycle";
+    const TABLE_PACKAGE_CATALOG = "package_catalog";
 
     console.log('🔵 [RECOMMEND API] Tables:', {
       TABLE_USAGE,
