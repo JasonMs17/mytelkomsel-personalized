@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import Groq from 'groq-sdk'
 
+export const runtime = "nodejs";
+
 const GROQ_API_KEY = process.env.GROQ_API_KEY || ''
 
 interface UserNeeds {

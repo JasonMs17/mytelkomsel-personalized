@@ -10,6 +10,8 @@ import {
   SAWResult 
 } from "../../../lib/saw";
 
+export const runtime = "nodejs";
+
 export async function POST(req: Request) {
   console.log('🔵 [RECOMMEND API] Starting request...');
   

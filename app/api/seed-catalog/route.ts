@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server'
 import { seedPackageCatalog } from '../../../lib/seed-catalog'
 
+export const runtime = "nodejs";
+
 export async function POST(request: Request) {
   try {
     const result = await seedPackageCatalog()
